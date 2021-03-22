@@ -3,23 +3,20 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import usersReducer from './store/reducers/users'
-import { applyMiddleware, createStore } from 'redux'
-import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
+import ApolloClient from 'apollo-boost'
 import { BrowserRouter } from 'react-router-dom'
+import { ApolloProvider } from 'react-apollo'
 
-const store = createStore(
-  usersReducer,
-  applyMiddleware(thunk)
-)
+const client = new ApolloClient({
+  uri: 'http://localhost:5000/graphql'
+})
 
 ReactDOM.render(
-  <Provider store={store}>
+  <ApolloProvider client={client}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>,
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
