@@ -11,6 +11,7 @@ import { EDIT_USER } from '../../mutations/users'
 import Snackbar from '@material-ui/core/Snackbar'
 import { validationSchemaUser } from '../../utils/validators/validateUser'
 import { Alert } from './../UI/Alert'
+import { GET_USERS } from './../../query/users';
 
 const EditUser = () => {
   const { id } = useParams(),
@@ -53,7 +54,10 @@ const EditUser = () => {
   })
   
   const [updateUser] = useMutation(EDIT_USER, {
-    variables: {id, input: formik.values}
+    variables: {id, input: formik.values},
+    refetchQueries: [
+      {query: GET_USERS}
+    ]
   })
 
   if (loading) return <LinearIndeterminate/>

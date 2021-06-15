@@ -17,8 +17,8 @@ const resolvers = {
         new: true
       })
     },
-    deleteUser: (_, { id }) => {
-      User.findOneAndDelete(id)
+    deleteUser: async (_, { id }) => {
+      await User.findOneAndDelete(id)
     }
   }
 }

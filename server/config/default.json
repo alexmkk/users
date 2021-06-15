@@ -1,5 +1,4 @@
 {
   "port": 5000,
-  "jwtSecret": "alexmkk",
-  "mongoUri": "mongodb+srv://alexmkk:Z4b9A7JZcZqbIi8p@cluster0.vg5me.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "mongoUri": "mongodb://localhost:27017/users?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
 }

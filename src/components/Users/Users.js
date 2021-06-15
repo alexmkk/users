@@ -27,20 +27,17 @@ const Users = () => {
     if (reason === 'clickaway') return
     setOpen(false)
   }
-  const { loading, error, data, refetch } = useQuery(GET_USERS, {
-    onCompleted: () => {
-      if (history.location.state) {
-        refetch()
-      }
-    }
-  })
+  const { loading, error, data } = useQuery(GET_USERS)
 
-  const [deleteUser] = useMutation(DELETE_USER)
+  const [deleteUser] = useMutation(DELETE_USER,{
+    refetchQueries: [
+      {query: GET_USERS}
+    ]
+  })
 
   const onDelete = id => {
     deleteUser({ variables: { id } })
       .then(() =>
-        refetch(),
         showAlert()
       )
   }
@@ -56,7 +53,9 @@ const Users = () => {
             <TableRow>
               <TableCell align="center">ID</TableCell>
               <TableCell>Имя</TableCell>
-              <TableCell colSpan={4}>Email</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell colSpan={3}></TableCell>
+              
             </TableRow>
           </TableHead>
           <TableBody>
@@ -102,7 +101,7 @@ const Users = () => {
         className={classes.addButton}
         onClick={() => history.push(`/add`)}
       >Добавить
-    </Button>
+      </Button>
       <Snackbar open={open} autoHideDuration={3000} onClose={hideAlert}>
         <Alert onClose={hideAlert} severity="success">
           Пользователь удален!

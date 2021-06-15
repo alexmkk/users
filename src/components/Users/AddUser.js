@@ -9,6 +9,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import { validationSchemaUser } from '../../utils/validators/validateUser'
 import { Alert } from './../UI/Alert'
 import { CREATE_USER } from './../../mutations/users';
+import { GET_USERS } from './../../query/users';
 
 const AddUser = () => {
   const history = useHistory(),
@@ -41,7 +42,10 @@ const AddUser = () => {
   })
   
   const [createUser] = useMutation(CREATE_USER, {
-    variables: {input: formik.values}
+    variables: {input: formik.values},
+    refetchQueries: [
+      {query: GET_USERS}
+    ]
   })
   
   return (<div className={classesCard.root}>
